@@ -1,10 +1,15 @@
 package dao;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
 import model.Customer;
 import model.Employee;
+import model.Movie;
 
 public class EmployeeDao {
 	/*
@@ -22,7 +27,21 @@ public class EmployeeDao {
 		 */
 		
 		/*Sample data begins*/
-		return "success";
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			Connection con = DriverManager.getConnection("jdbc:mysql://mysql3.cs.stonybrook.edu:3306/agargueta?user=agargueta", "agargueta", "111456257");
+			Statement st = con.createStatement();
+			
+			String sql = "INSERT INTO Employee " + "VALUES (" + employee.getEmployeeID() + ", "+employee.getStartDate()+", '"+employee.getHourlyRate()+"', '"+employee.getEmail()+"', '"+employee.getFirstName()+"', '"+employee.getLastName()+"', '"+employee.getAddress()+"'"
+					+ ", '"+employee.getCity()+"', '"+employee.getState()+"', '"+employee.getZipCode()+"', '"+employee.getTelephone()+"')";
+			st.executeUpdate(sql);
+			return "success";
+		}
+		catch(Exception e) {
+			System.out.println(e);
+			return "failure";
+		}
+
 		/*Sample data ends*/
 
 	}
@@ -67,21 +86,31 @@ public class EmployeeDao {
 		List<Employee> employees = new ArrayList<Employee>();
 		
 		/*Sample data begins*/
-		for (int i = 0; i < 10; i++) {
-			Employee employee = new Employee();
-			employee.setEmail("shiyong@cs.sunysb.edu");
-			employee.setFirstName("Shiyong");
-			employee.setLastName("Lu");
-			employee.setAddress("123 Success Street");
-			employee.setCity("Stony Brook");
-			employee.setStartDate("2006-10-17");
-			employee.setState("NY");
-			employee.setZipCode(11790);
-			employee.setTelephone("5166328959");
-			employee.setEmployeeID("631-413-5555");
-			employee.setHourlyRate(100);
-			employees.add(employee);
-		}
+			try {
+				Class.forName("com.mysql.jdbc.Driver");
+				Connection con = DriverManager.getConnection("jdbc:mysql://mysql3.cs.stonybrook.edu:3306/agargueta?user=agargueta", "agargueta", "111456257");
+				Statement st = con.createStatement();
+				ResultSet rs = st.executeQuery("select * from Employee");
+				while(rs.next()) {
+					Employee employee = new Employee();
+					employee.setEmployeeID(rs.getString("Id"));
+					employee.setFirstName(rs.getString("FirstName"));
+					employee.setLastName(rs.getString("LastName"));
+					employee.setAddress(rs.getString("Address"));
+					employee.setCity(rs.getString("City"));
+					employee.setState(rs.getString("State"));
+					employee.setZipCode(rs.getInt("Zipcode"));
+					employee.setTelephone(rs.getString("Telephone"));
+					employee.setEmail(rs.getString("Email"));
+					employee.setStartDate(rs.getString("StartDate"));
+					employee.setHourlyRate(rs.getInt("HourlyRate"));
+					employees.add(employee);
+				}
+				
+			}
+			catch(Exception e) {
+				System.out.println(e);
+			}
 		/*Sample data ends*/
 		
 		return employees;
@@ -98,17 +127,29 @@ public class EmployeeDao {
 		Employee employee = new Employee();
 		
 		/*Sample data begins*/
-		employee.setEmail("shiyong@cs.sunysb.edu");
-		employee.setFirstName("Shiyong");
-		employee.setLastName("Lu");
-		employee.setAddress("123 Success Street");
-		employee.setCity("Stony Brook");
-		employee.setStartDate("2006-10-17");
-		employee.setState("NY");
-		employee.setZipCode(11790);
-		employee.setTelephone("5166328959");
-		employee.setEmployeeID("631-413-5555");
-		employee.setHourlyRate(100);
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			Connection con = DriverManager.getConnection("jdbc:mysql://mysql3.cs.stonybrook.edu:3306/agargueta?user=agargueta", "agargueta", "111456257");
+			Statement st = con.createStatement();
+			ResultSet rs = st.executeQuery("select * from Employee where Id = '"+ employeeID+"'");
+			while(rs.next()) {
+				employee.setEmployeeID(rs.getString("Id"));
+				employee.setFirstName(rs.getString("FirstName"));
+				employee.setLastName(rs.getString("LastName"));
+				employee.setAddress(rs.getString("Address"));
+				employee.setCity(rs.getString("City"));
+				employee.setState(rs.getString("State"));
+				employee.setZipCode(rs.getInt("Zipcode"));
+				employee.setTelephone(rs.getString("Telephone"));
+				employee.setEmail(rs.getString("Email"));
+				employee.setStartDate(rs.getString("StartDate"));
+				employee.setHourlyRate(rs.getInt("HourlyRate"));
+			}
+			
+		}
+		catch(Exception e) {
+			System.out.println(e);
+		}
 		/*Sample data ends*/
 		
 		return employee;
@@ -124,10 +165,7 @@ public class EmployeeDao {
 		Employee employee = new Employee();
 		
 		/*Sample data begins*/
-		employee.setEmail("shiyong@cs.sunysb.edu");
-		employee.setFirstName("Shiyong");
-		employee.setLastName("Lu");
-		employee.setEmployeeID("631-413-5555");
+		
 		/*Sample data ends*/
 		
 		return employee;
@@ -139,8 +177,20 @@ public class EmployeeDao {
 		 * username, which is the Employee's email address who's Employee ID has to be fetched, is given as method parameter
 		 * The Employee ID is required to be returned as a String
 		 */
-
-		return "111-11-1111";
+		String employeeId="";
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			Connection con = DriverManager.getConnection("jdbc:mysql://mysql3.cs.stonybrook.edu:3306/agargueta?user=agargueta", "agargueta", "111456257");
+			Statement st = con.createStatement();
+			ResultSet rs = st.executeQuery("select Id from Employee where Email = '"+username+"'");
+			employeeId = rs.getString("Id");
+				
+			
+		}
+		catch(Exception e) {
+			System.out.println(e);
+		}
+		return employeeId;
 	}
 
 }
