@@ -35,11 +35,10 @@ public class CustomerDao {
 			Class.forName("com.mysql.jdbc.Driver");
 			Connection con = DriverManager.getConnection("jdbc:mysql://mysql3.cs.stonybrook.edu:3306/agargueta?user=agargueta", "agargueta", "111456257");
 			Statement st = con.createStatement();
-			ResultSet rs = st.executeQuery("select * from Customer where FirstName like \'%" + searchKeyword + "%\'" +
-			"or LastName like \'%" + searchKeyword + "%\'");
+			ResultSet rs = st.executeQuery("select * from Customer");
 			while(rs.next()) {
 				Customer customer = new Customer();
-				customer.setCustomerID(rs.getString("CustomerId"));
+				customer.setCustomerID(rs.getString("Id"));
 				customer.setAddress(rs.getString("Address"));
 				customer.setLastName(rs.getString("LastName"));
 				customer.setFirstName(rs.getString("FirstName"));
@@ -99,9 +98,16 @@ public class CustomerDao {
 			Class.forName("com.mysql.jdbc.Driver");
 			Connection con = DriverManager.getConnection("jdbc:mysql://mysql3.cs.stonybrook.edu:3306/agargueta?user=agargueta", "agargueta", "111456257");
 			Statement st = con.createStatement();
-			ResultSet rs = st.executeQuery("select Email from Customer");
+			ResultSet rs = st.executeQuery("select * from Customer");
 			while(rs.next()) {
 				Customer customer = new Customer();
+				customer.setCustomerID(rs.getString("Id"));
+				customer.setAddress(rs.getString("Address"));
+				customer.setState(rs.getString("State"));
+				customer.setCity(rs.getString("City"));
+				customer.setFirstName(rs.getString("FirstName"));
+				customer.setLastName(rs.getString("LastName"));
+				customer.setZipCode(rs.getInt("ZipCode"));
 				customer.setEmail(rs.getString("Email"));
 				customers.add(customer);
 			}
@@ -187,22 +193,21 @@ public class CustomerDao {
 		 * username, which is the email address of the customer, who's ID has to be returned, is given as method parameter
 		 * The Customer's ID is required to be returned as a String
 		 */
+		String customerID = "";
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			Connection con = DriverManager.getConnection("jdbc:mysql://mysql3.cs.stonybrook.edu:3306/agargueta?user=agargueta", "agargueta", "111456257");
 			Statement st = con.createStatement();
 			ResultSet rs = st.executeQuery("select Id from Customer where Email = '"+ username +"'");
-			String customerID = "";
-			while(rs.next()) {
-				customerID= (rs.getString("CustomerId"));
-				return customerID;
-			}
+			
+			customerID= (rs.getString("Id"));
+			return customerID;
 			
 		}
 		catch(Exception e) {
 			System.out.println(e);
 		}
-		return "";
+		return customerID;
 	}
 
 
