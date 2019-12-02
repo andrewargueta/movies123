@@ -56,7 +56,22 @@ public class EmployeeDao {
 		 */
 		
 		/*Sample data begins*/
-		return "success";
+		try {
+			//System.out.println(movie.getMovieName());
+			Class.forName("com.mysql.jdbc.Driver");
+			Connection con = DriverManager.getConnection("jdbc:mysql://mysql3.cs.stonybrook.edu:3306/agargueta?user=agargueta", "agar"
+					+ "gueta", "111456257");
+			Statement st = con.createStatement();
+			String sql = "UPDATE Employee " + "SET FirstName ='"+employee.getFirstName()+"', LastName='"+employee.getLastName()+"', HourlyRate='"+employee.getHourlyRate()+"', Email='"+employee.getEmail()+"', StartDate='"+employee.getStartDate()+"'"
+					+ ", City='"+employee.getCity()+"', ZipCode='"+employee.getZipCode()+"', Telephone='"+employee.getTelephone()+"', State='"+employee.getState()+"', Address='"+employee.getAddress()+"' "
+					+ "WHERE Id ='"+employee.getEmployeeID() +"'";
+			st.executeUpdate(sql);
+			return "success";
+		}
+		catch(Exception e) {
+			System.out.println(e);
+			return "failure";
+		}
 		/*Sample data ends*/
 
 	}
