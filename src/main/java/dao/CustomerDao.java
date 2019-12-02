@@ -279,7 +279,23 @@ public class CustomerDao {
 		 */
 		
 		/*Sample data begins*/
-		return "success";
+		try {
+			//System.out.println(movie.getMovieName());
+			Class.forName("com.mysql.jdbc.Driver");
+			Connection con = DriverManager.getConnection("jdbc:mysql://mysql3.cs.stonybrook.edu:3306/agargueta?user=agargueta", "agar"
+					+ "gueta", "111456257");
+			Statement st = con.createStatement();
+			//int Id = movie.getMovieID();
+			String sql = "UPDATE Customer " + "SET FirstName ='"+customer.getFirstName()+"', LastName='"+customer.getLastName()+"', Rating="+customer.getRating()+", Email='"+customer.getEmail()+"', CreditCard='"+customer.getCreditCard()+"'"
+					+ ", City='"+customer.getCity()+"', ZipCode='"+customer.getZipCode()+"', Telephone='"+customer.getTelephone()+"', State='"+customer.getState()+"', Address='"+customer.getAddress()+"' "
+					+ "WHERE Id ='"+customer.getCustomerID() +"' ";
+			st.executeUpdate(sql);
+			return "success";
+		}
+		catch(Exception e) {
+			System.out.println(e);
+			return "failure";
+		}
 		/*Sample data ends*/
 
 	}
