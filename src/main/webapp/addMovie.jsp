@@ -47,10 +47,6 @@
 	    <label for="movieNumCopies">Number of Copies</label>
 	    <input type="text" class="form-control" id="movieNumCopies" name="movieNumCopies" placeholder="Enter number of copies" required>
 	  </div>
-	  <div class="form-group">
-	    <label for="movieNumCopies">Movie ID</label>
-	    <input type="text" class="form-control" id="movieID" name="movieID" placeholder="Enter Movie ID" required>
-	  </div>
 	  <button type="submit" class="btn btn-primary">Submit</button>
 	</form>
 	</div>
