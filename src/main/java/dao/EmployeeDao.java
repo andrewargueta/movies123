@@ -32,7 +32,7 @@ public class EmployeeDao {
 			Connection con = DriverManager.getConnection("jdbc:mysql://mysql3.cs.stonybrook.edu:3306/agargueta?user=agargueta", "agargueta", "111456257");
 			Statement st = con.createStatement();
 			
-			String sql = "INSERT INTO Employee " + "VALUES (" + employee.getEmployeeID() + ", "+employee.getStartDate()+", '"+employee.getHourlyRate()+"', '"+employee.getEmail()+"', '"+employee.getFirstName()+"', '"+employee.getLastName()+"', '"+employee.getAddress()+"'"
+			String sql = "INSERT INTO Employee " + "VALUES ('" + employee.getEmployeeID() + "', '"+employee.getStartDate()+"', '"+employee.getHourlyRate()+"', '"+employee.getEmail()+"', '"+employee.getFirstName()+"', '"+employee.getLastName()+"', '"+employee.getAddress()+"'"
 					+ ", '"+employee.getCity()+"', '"+employee.getState()+"', '"+employee.getZipCode()+"', '"+employee.getTelephone()+"')";
 			st.executeUpdate(sql);
 			return "success";
