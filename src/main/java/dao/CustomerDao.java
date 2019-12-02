@@ -135,8 +135,9 @@ public class CustomerDao {
 			Class.forName("com.mysql.jdbc.Driver");
 			Connection con = DriverManager.getConnection("jdbc:mysql://mysql3.cs.stonybrook.edu:3306/agargueta?user=agargueta", "agargueta", "111456257");
 			Statement st = con.createStatement();
-			ResultSet rs = st.executeQuery("select * from Customer where Id = '"+customerID+"'");			
-				customer.setCustomerID(rs.getString("CustomerId"));
+			ResultSet rs = st.executeQuery("select * from Customer where Id = '"+customerID+"'");		
+			while(rs.next()) {
+				customer.setCustomerID(rs.getString("Id"));
 				customer.setAddress(rs.getString("Address"));
 				customer.setLastName(rs.getString("LastName"));
 				customer.setFirstName(rs.getString("FirstName"));
@@ -147,6 +148,7 @@ public class CustomerDao {
 				customer.setTelephone(rs.getString("Telephone"));
 				customer.setCreditCard(rs.getString("CreditCard"));
 				customer.setRating(rs.getInt("Rating"));
+			}
 			
 		}
 		catch(Exception e) {
