@@ -1,6 +1,6 @@
 <%@page import="org.apache.jasper.tagplugins.jstl.core.ForEach"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="model.Customer"%>
+<%@page import="model.Movie"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -50,6 +50,10 @@
 	  <div class="form-group">
 	    <label for="movieNumCopies">Number of Copies</label>
 	    <input type="text" class="form-control" id="movieNumCopies" name="movieNumCopies" placeholder="Enter number of copies" value=${editMovie.numCopies} required>
+	  </div>
+	  <div class="form-group">
+	    <label for="movieID">Movie ID</label>
+	    <input type="text" class="form-control" id="movieID" name="movieID" placeholder="Movie ID" value=${editMovie.movieID} readonly>
 	  </div>
   
 	  <button type="submit" class="btn btn-primary">Submit</button>
