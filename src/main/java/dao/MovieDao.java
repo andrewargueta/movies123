@@ -105,8 +105,13 @@ public class MovieDao {
 			Class.forName("com.mysql.jdbc.Driver");
 			Connection con = DriverManager.getConnection("jdbc:mysql://mysql3.cs.stonybrook.edu:3306/agargueta?user=agargueta", "agargueta", "111456257");
 			Statement st = con.createStatement();
-			
-			String sql = "INSERT INTO Movie " + " VALUES(" + movie.getMovieID() + ", '"+movie.getMovieName()+"', '"+movie.getMovieType()+"', "+movie.getRating()+", "+movie.getDistFee()+", "+movie.getNumCopies()+") ";
+			ResultSet rs = st.executeQuery("select count(*) from Movie");
+			int count = 0;
+			if(rs.next()) {
+				count = rs.getInt(1);
+				count++;
+			}
+			String sql = "INSERT INTO Movie " + "VALUES (" + count + ", '"+movie.getMovieName()+"', '"+movie.getMovieType()+"', "+movie.getRating()+", "+movie.getDistFee()+", "+movie.getNumCopies()+")";
 			st.executeUpdate(sql);
 			return "success";
 		}
