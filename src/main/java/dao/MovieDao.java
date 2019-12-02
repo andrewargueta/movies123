@@ -75,6 +75,8 @@ public class MovieDao {
 				movie.setMovieName(rs.getString("MovieName"));
 				movie.setMovieType(rs.getString("MovieType"));
 				movie.setNumCopies(rs.getInt("NumCopies"));
+				System.out.println(movie.getMovieID());
+				return movie;
 			
 			}
 			
@@ -104,7 +106,7 @@ public class MovieDao {
 			Connection con = DriverManager.getConnection("jdbc:mysql://mysql3.cs.stonybrook.edu:3306/agargueta?user=agargueta", "agargueta", "111456257");
 			Statement st = con.createStatement();
 			
-			String sql = "INSERT INTO Movie " + "VALUES (" + movie.getMovieID() + ", '"+movie.getMovieName()+"', '"+movie.getMovieType()+"', "+movie.getRating()+", "+movie.getDistFee()+", "+movie.getNumCopies()+")";
+			String sql = "INSERT INTO Movie " + " VALUES(" + movie.getMovieID() + ", '"+movie.getMovieName()+"', '"+movie.getMovieType()+"', "+movie.getRating()+", "+movie.getDistFee()+", "+movie.getNumCopies()+") ";
 			st.executeUpdate(sql);
 			return "success";
 		}
@@ -128,12 +130,13 @@ public class MovieDao {
 		
 		/*Sample data begins*/
 		try {
+			System.out.println(movie.getMovieID());
 			Class.forName("com.mysql.jdbc.Driver");
 			Connection con = DriverManager.getConnection("jdbc:mysql://mysql3.cs.stonybrook.edu:3306/agargueta?user=agargueta", "agargueta", "111456257");
 			Statement st = con.createStatement();
-			
-			String sql = "UPDATE Movie " + "SET MovieName ='"+movie.getMovieName()+"', MovieType='"+movie.getMovieType()+"', Rating="+movie.getRating()+", DistrFee="+movie.getDistFee()+", NumCopies="+movie.getNumCopies()+" where "
+			String sql = "UPDATE Movie " + "SET MovieName ='"+movie.getMovieName()+"', MovieType='"+movie.getMovieType()+"', Rating='"+movie.getRating()+"', DistrFee='"+movie.getDistFee()+"', NumCopies='"+movie.getNumCopies()+"' WHERE "
 					+ "Id ='"+movie.getMovieID()+"'";
+			 //movie.getMovieID comes out as 0
 			st.executeUpdate(sql);
 			return "success";
 		}
