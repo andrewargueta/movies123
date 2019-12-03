@@ -196,9 +196,23 @@ public class EmployeeDao {
 		 */
 		
 		Employee employee = new Employee();
-		
+		String employeeID = "";
 		/*Sample data begins*/
-		
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			Connection con = DriverManager.getConnection("jdbc:mysql://mysql3.cs.stonybrook.edu:3306/agargueta?user=agargueta", "agargueta", "111456257");
+			Statement st = con.createStatement();
+			ResultSet rs = st.executeQuery("select * from Rental GROUP BY CustRepId ORDER BY COUNT(*) DESC" + 
+					" LIMIT 1");
+			while(rs.next())
+				employeeID = rs.getString("CustRepId");
+			
+			employee = this.getEmployee(employeeID);
+			
+		}
+		catch(Exception e) {
+			System.out.println(e);
+		}
 		/*Sample data ends*/
 		
 		return employee;
