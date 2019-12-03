@@ -259,7 +259,9 @@ public class CustomerDao {
 			Connection con = DriverManager.getConnection("jdbc:mysql://mysql3.cs.stonybrook.edu:3306/agargueta?user=agargueta", "agargueta", "111456257");
 			Statement st = con.createStatement();
 			
-			String sql = "INSERT INTO Customer " + "VALUES ("; //FINISH IMPLEMENTING
+			String sql = "INSERT INTO Customer " + "VALUES ('" + customer.getCustomerID() + "', '"+customer.getEmail()+"', '"+customer.getRating()+"', '"+
+					customer.getCreditCard()+"', '"+customer.getFirstName()+"', '"+customer.getLastName()+"', '"+customer.getCity()+"'"
+					+ ", '"+customer.getZipCode()+"', '"+customer.getTelephone()+"', '"+customer.getState()+"', '"+customer.getAddress()+"')";
 			st.executeUpdate(sql);
 			return "success";
 		}
