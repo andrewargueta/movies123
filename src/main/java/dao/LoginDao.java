@@ -33,11 +33,11 @@ public class LoginDao {
 			Class.forName("com.mysql.jdbc.Driver");
 			Connection con = DriverManager.getConnection("jdbc:mysql://mysql3.cs.stonybrook.edu:3306/agargueta?user=agargueta", "agargueta", "111456257");
 			Statement st = con.createStatement();
-			ResultSet rs = st.executeQuery("select Email from Customer where Email='"+username+"'");
+			ResultSet rs = st.executeQuery("select * from Customer where Email='"+username+"'");
 			while(rs.next()) {
 				isCustomer= true;
 			}
-			rs = st.executeQuery("select Email from Employee where Email='"+username+"'");
+			rs = st.executeQuery("select * from Employee where Email='"+username+"'");
 			while(rs.next()) {
 				isEmployee= true;
 			}
