@@ -210,20 +210,21 @@ public class EmployeeDao {
 		 * username, which is the Employee's email address who's Employee ID has to be fetched, is given as method parameter
 		 * The Employee ID is required to be returned as a String
 		 */
-		String employeeId="";
+		String employeeID="";
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			Connection con = DriverManager.getConnection("jdbc:mysql://mysql3.cs.stonybrook.edu:3306/agargueta?user=agargueta", "agargueta", "111456257");
 			Statement st = con.createStatement();
-			ResultSet rs = st.executeQuery("select Id from Employee where Email = '"+username+"'");
-			employeeId = rs.getString("Id");
+			ResultSet rs = st.executeQuery("select * from Employee where Email = '"+username+"'");
+			while(rs.next())
+				employeeID = rs.getString("Id");
 				
 			
 		}
 		catch(Exception e) {
 			System.out.println(e);
 		}
-		return employeeId;
+		return employeeID;
 	}
 
 }
