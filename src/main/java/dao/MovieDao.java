@@ -257,17 +257,61 @@ public class MovieDao {
 		 */
 
 		List<Movie> movies = new ArrayList<Movie>();
+		List<String> movieTypes = new ArrayList<String>();
 		
 		/*Sample data begins*/
-		for (int i = 0; i < 4; i++) {
-			Movie movie = new Movie();
-			movie.setMovieID(1);
-			movie.setMovieName("The Godfather");
-			movie.setMovieType("Drama");
-			movies.add(movie);
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			Connection con = DriverManager.getConnection("jdbc:mysql://mysql3.cs.stonybrook.edu:3306/agargueta?user=agargueta", "agargueta", "111456257");
+			Statement st = con.createStatement();
+			String query = "SELECT MovieType FROM (Rental INNER JOIN Account ON (AccountId=Id)) "
+					+ "INNER JOIN Movie ON (Rental.MovieId=Movie.Id) "
+					+ "WHERE Account.CustomerId = ? "
+					+ "GROUP BY MovieType ORDER BY COUNT(*) DESC LIMIT 2";
+			PreparedStatement p = con.prepareStatement(query);
+			customerID = customerID.replace("-", "");
+			p.setString(1, customerID);
+			ResultSet rs = p.executeQuery();
+			// add the most common movie types from customer's past orders
+			while(rs.next()) {
+				String type = rs.getString("MovieType");
+				if(movieTypes.contains(type)) {
+					
+				}
+				else {
+					movieTypes.add(type);
+				}
+				
+			}
+			System.out.println(movieTypes.size());
+			
+			// for every movie in type, add some movies into the personal suggestions list
+			for(int i = 0; i < movieTypes.size(); i++) {
+				//Statement stmt = con.createStatement();
+				String sql = "SELECT Id, MovieName, MovieType "
+						+ "FROM Movie "
+						+ "WHERE Rating > 3 "
+						+ "AND MovieType = ? ";
+				PreparedStatement ps = con.prepareStatement(sql);
+				ps.setString(1, movieTypes.get(i));
+				System.out.println(movieTypes.get(i));
+				ResultSet result = ps.executeQuery();
+				while(result.next()) {
+					Movie movie = new Movie();
+					movie.setMovieID(result.getInt("Id"));
+					movie.setMovieType(result.getString("MovieType"));
+					movie.setMovieName(result.getString("MovieName"));
+					
+					System.out.println(result.getString("MovieName"));
+					
+					movies.add(movie);
+				}
+			}
+		} catch (Exception e) {
+			System.out.println(e);
 		}
-		/*Sample data ends*/
 		
+		/*Sample data ends*/		
 		return movies;
 
 	}
