@@ -33,7 +33,7 @@ public class EmployeeDao {
 			Statement st = con.createStatement();
 			
 			String sql = "INSERT INTO Employee " + "VALUES ('" + employee.getEmployeeID() + "', '"+employee.getStartDate()+"', '"+employee.getHourlyRate()+"', '"+employee.getEmail()+"', '"+employee.getFirstName()+"', '"+employee.getLastName()+"', '"+employee.getAddress()+"'"
-					+ ", '"+employee.getCity()+"', '"+employee.getState()+"', '"+employee.getZipCode()+"', '"+employee.getTelephone()+"')";
+					+ ", '"+employee.getCity()+"', '"+employee.getState()+"', '"+employee.getZipCode()+"', '"+employee.getTelephone()+"', '"+employee.getLevel()+"', '"+employee.getRevenue()+"')";
 			st.executeUpdate(sql);
 			return "success";
 		}
@@ -63,7 +63,8 @@ public class EmployeeDao {
 					+ "gueta", "111456257");
 			Statement st = con.createStatement();
 			String sql = "UPDATE Employee " + "SET FirstName ='"+employee.getFirstName()+"', LastName='"+employee.getLastName()+"', HourlyRate='"+employee.getHourlyRate()+"', Email='"+employee.getEmail()+"', StartDate='"+employee.getStartDate()+"'"
-					+ ", City='"+employee.getCity()+"', ZipCode='"+employee.getZipCode()+"', Telephone='"+employee.getTelephone()+"', State='"+employee.getState()+"', Address='"+employee.getAddress()+"' "
+					+ ", City='"+employee.getCity()+"', ZipCode='"+employee.getZipCode()+"', Telephone='"+employee.getTelephone()+"', State='"+employee.getState()+"', Address='"+employee.getAddress()+"'"
+					+ ", Level='"+employee.getLevel()+"', Revenue='"+employee.getRevenue()+"' "
 					+ "WHERE Id ='"+employee.getEmployeeID() +"'";
 			st.executeUpdate(sql);
 			return "success";
@@ -132,6 +133,8 @@ public class EmployeeDao {
 					employee.setEmail(rs.getString("Email"));
 					employee.setStartDate(rs.getString("StartDate"));
 					employee.setHourlyRate(rs.getInt("HourlyRate"));
+					employee.setLevel(rs.getString("Level"));
+					employee.setRevenue(rs.getString("Revenue"));
 					employees.add(employee);
 				}
 				
@@ -172,6 +175,8 @@ public class EmployeeDao {
 				employee.setEmail(rs.getString("Email"));
 				employee.setStartDate(rs.getString("StartDate"));
 				employee.setHourlyRate(rs.getInt("HourlyRate"));
+				employee.setLevel(rs.getString("Level"));
+				employee.setRevenue(rs.getString("Revenue"));
 			}
 			
 		}
