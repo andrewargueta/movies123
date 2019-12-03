@@ -1,6 +1,12 @@
 package dao;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+
 import model.Login;
+import model.Movie;
 
 public class LoginDao {
 	/*
@@ -16,12 +22,35 @@ public class LoginDao {
 		 * username, which is the email address of the user, is given as method parameter
 		 * password, which is the password of the user, is given as method parameter
 		 * Query to verify the username and password and fetch the role of the user, must be implemented
-		 */
 		
 		/*Sample data begins*/
 		Login login = new Login();
-		//login.setRole("customerRepresentative");
-		login.setRole("manager");
+		//login.setRole("customerRepresentative");     
+		boolean isCustomer = false;
+		boolean isEmployee = false;
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			Connection con = DriverManager.getConnection("jdbc:mysql://mysql3.cs.stonybrook.edu:3306/agargueta?user=agargueta", "agargueta", "111456257");
+			Statement st = con.createStatement();
+			ResultSet rs = st.executeQuery("select Email from Customer where Email='"+username+"'");
+			while(rs.next()) {
+				isCustomer= true;
+			}
+			rs = st.executeQuery("select Email from Employee where Email='"+username+"'");
+			while(rs.next()) {
+				isCustomer= true;
+			}
+		}
+		catch(Exception e) {
+			System.out.println(e);
+		}
+		if(isCustomer) {
+			login.setRole("customer");
+		}
+		if(isEmployee) {
+			//get employee and find out if hes manager or representative
+			login.setRole("customerRepresentative");
+		}
 		return login;
 		/*Sample data ends*/
 		
