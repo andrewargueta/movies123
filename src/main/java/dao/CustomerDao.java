@@ -176,7 +176,6 @@ public class CustomerDao {
 			String sql = "DELETE FROM Customer where Customer.Id = '" +customerID+"' ";
 			st.executeUpdate(sql);
 			return "success";
-
 			
 		}
 		catch(Exception e) {
@@ -200,9 +199,9 @@ public class CustomerDao {
 			Class.forName("com.mysql.jdbc.Driver");
 			Connection con = DriverManager.getConnection("jdbc:mysql://mysql3.cs.stonybrook.edu:3306/agargueta?user=agargueta", "agargueta", "111456257");
 			Statement st = con.createStatement();
-			ResultSet rs = st.executeQuery("select Id from Customer where Email = '"+ username +"'");
-			
-			customerID= (rs.getString("Id"));
+			ResultSet rs = st.executeQuery("select * from Customer where Email = '"+ username +"'");
+			while(rs.next())
+				customerID= (rs.getString("Id"));
 			return customerID;
 			
 		}
