@@ -43,14 +43,14 @@ public class UpdateMovieController extends HttpServlet {
 		int movieRating = Integer.parseInt(request.getParameter("movieRating"));
 		int movieDistrFee = Integer.parseInt(request.getParameter("movieDistrFee"));
 		int movieNumCopies = Integer.parseInt(request.getParameter("movieNumCopies"));
-		
+		int movieID = Integer.parseInt(request.getParameter("movieID"));
 		Movie movie = new Movie();
 		movie.setMovieName(movieName);
 		movie.setMovieType(movieType);
 		movie.setRating(movieRating);
 		movie.setDistFee(movieDistrFee);
 		movie.setNumCopies(movieNumCopies);
-		
+		movie.setMovieID(movieID);
 		MovieDao movieDao = new MovieDao();
 		String result = movieDao.editMovie(movie);
 		
