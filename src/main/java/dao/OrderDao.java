@@ -13,23 +13,25 @@ public class OrderDao {
 	
 	public List<Order> getAllOrders() {
 		
-		List<Order> orders = new ArrayList<Order>();
-		
-		/*
-		 * The students code to fetch data from the database will be written here
-		 * Each record is required to be encapsulated as a "Order" class object and added to the "orders" ArrayList
-		 * Query to get data about all the orders should be implemented
-		 */
-		
-		/*Sample data begins*/
-		for (int i = 0; i < 10; i++) {
-			Order order = new Order();
-			order.setOrderID(1);
-			order.setDateTime("11-11-09 10:00");
-			order.setReturnDate("11-14-09");
-			orders.add(order);
+		List<Order> orders= new ArrayList<Order>();
+
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			Connection con = DriverManager.getConnection("jdbc:mysql://mysql3.cs.stonybrook.edu:3306/agargueta?user=agargueta", "agargueta", "111456257");
+			Statement st = con.createStatement();
+			ResultSet rs = st.executeQuery("select * from Order");
+			while(rs.next()) {
+				Order order= new Order();
+				order.setOrderID(rs.getInt("Id"));
+				order.setDateTime(rs.getString("DateTime"));
+				order.setReturnDate(rs.getString("ReturnDate"));
+				orders.add(order);
+			}
+			
 		}
-		/*Sample data ends*/
+		catch(Exception e) {
+			System.out.println(e);
+		}
 		
 		return orders;
 
