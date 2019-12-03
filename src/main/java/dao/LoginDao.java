@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
+import model.Employee;
 import model.Login;
 import model.Movie;
 
@@ -38,7 +39,7 @@ public class LoginDao {
 			}
 			rs = st.executeQuery("select Email from Employee where Email='"+username+"'");
 			while(rs.next()) {
-				isCustomer= true;
+				isEmployee= true;
 			}
 		}
 		catch(Exception e) {
@@ -48,8 +49,10 @@ public class LoginDao {
 			login.setRole("customer");
 		}
 		if(isEmployee) {
-			//get employee and find out if hes manager or representative
-			login.setRole("customerRepresentative");
+			EmployeeDao employeeDao = new EmployeeDao();
+			String employeeID = employeeDao.getEmployeeID(username);
+			Employee employee = employeeDao.getEmployee(employeeID);
+			login.setRole(employee.getLevel());
 		}
 		return login;
 		/*Sample data ends*/
