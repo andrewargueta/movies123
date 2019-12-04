@@ -54,6 +54,9 @@ public class LoginDao {
 			Employee employee = employeeDao.getEmployee(employeeID);
 			login.setRole(employee.getLevel());
 		}
+		if(isEmployee == false && isCustomer == false) {
+			login.setRole("customer");
+		}
 		return login;
 		/*Sample data ends*/
 		
