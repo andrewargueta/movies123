@@ -23,7 +23,7 @@ public class OrderDao {
 			while(rs.next()) {
 				Order order= new Order();
 				order.setOrderID(rs.getInt("Id"));
-				order.setDateTime(rs.getString("DateTime"));
+				order.setDateTime(rs.getString("TimeDate"));
 				order.setReturnDate(rs.getString("ReturnDate"));
 				orders.add(order);
 			}
@@ -80,7 +80,7 @@ public class OrderDao {
 			while(rs.next()) {
 				Order order= new Order();
 				order.setOrderID(rs.getInt("Id"));
-				order.setDateTime(rs.getString("DateTime"));
+				order.setDateTime(rs.getString("TimeDate"));
 				order.setReturnDate(rs.getString("ReturnDate"));
 				orders.add(order);
 			}
