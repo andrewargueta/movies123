@@ -19,7 +19,7 @@ public class OrderDao {
 			Class.forName("com.mysql.jdbc.Driver");
 			Connection con = DriverManager.getConnection("jdbc:mysql://mysql3.cs.stonybrook.edu:3306/agargueta?user=agargueta", "agargueta", "111456257");
 			Statement st = con.createStatement();
-			ResultSet rs = st.executeQuery("select * from Order");
+			ResultSet rs = st.executeQuery("select * from Orders");
 			while(rs.next()) {
 				Order order= new Order();
 				order.setOrderID(rs.getInt("Id"));
