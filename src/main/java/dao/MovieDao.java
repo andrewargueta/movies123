@@ -718,21 +718,35 @@ public List<Movie> getQueueOfMovies(String customerID){
 		 */
 
 		List<Movie> movies = new ArrayList<Movie>();
-				
+		
+		
 		/*Sample data begins*/
-		for (int i = 0; i < 6; i++) {
-			Movie movie = new Movie();
-			movie.setMovieID(1);
-			movie.setMovieName("The Godfather");
-			movie.setMovieType("Drama");
-			movie.setDistFee(10000);
-			movie.setNumCopies(3);
-			movie.setRating(5);
-			movies.add(movie);
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			Connection con = DriverManager.getConnection("jdbc:mysql://mysql3.cs.stonybrook.edu:3306/agargueta?user=agargueta", "agargueta", "111456257");
+			Statement st = con.createStatement();
+			String query = "SELECT MovieName, MovieId, MovieType, DistrFee, NumCopies, Rating FROM (Rental INNER JOIN Movie ON (MovieId=Id)) "
+					+ "GROUP BY MovieId ORDER BY COUNT(*) DESC LIMIT 10";
+			ResultSet rs = st.executeQuery(query);
+			while(rs.next()) {
+				Movie movie = new Movie();
+				movie.setMovieName(rs.getString("MovieName"));
+				movie.setMovieType(rs.getString("MovieType"));
+				movie.setMovieID(rs.getInt("MovieId"));
+				
+				movie.setDistFee(rs.getInt("DistrFee"));
+				movie.setRating(rs.getInt("Rating"));
+				movie.setNumCopies(rs.getInt("NumCopies"));
+				movies.add(movie);
+			}
+			
+		} catch (Exception e) {
+			System.out.println(e);
 		}
 		/*Sample data ends*/
 		
 		return movies;
+
 
 	}
 
