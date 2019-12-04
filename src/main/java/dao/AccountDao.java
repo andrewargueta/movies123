@@ -49,10 +49,8 @@ public class AccountDao {
 				ps.setString(3, date);
 				ps.setString(4, date);
 				ResultSet rs = ps.executeQuery();
-				System.out.println(rs);
 				while(rs.next()) {
 					int j =rs.getInt("SUM(totalSales)");
-					System.out.println(j);
 					income = j;
 					
 				}
