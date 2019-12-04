@@ -290,7 +290,7 @@ public class MovieDao {
 				//Statement stmt = con.createStatement();
 				String sql = "SELECT Id, MovieName, MovieType "
 						+ "FROM Movie "
-						+ "WHERE Rating > 3 "
+						+ "WHERE Rating > 2 "
 						+ "AND MovieType = ? AND Id NOT IN (SELECT MovieId FROM (Customer "
 						+ "INNER JOIN Account ON (Customer.Id=Account.CustomerId)) "
 						+ "INNER JOIN Rental ON (Account.Id=Rental.AccountId) "
