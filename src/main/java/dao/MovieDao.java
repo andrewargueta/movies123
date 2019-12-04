@@ -502,8 +502,7 @@ public List<Movie> getQueueOfMovies(String customerID){
 			Class.forName("com.mysql.jdbc.Driver");
 			Connection con = DriverManager.getConnection("jdbc:mysql://mysql3.cs.stonybrook.edu:3306/agargueta?user=agargueta", "agargueta", "111456257");
 			Statement st = con.createStatement();
-			ResultSet rs = st.executeQuery("SELECT * FROM (Movie INNER JOIN AppearedIn ON (Id=MovieId)) "
-					+ "INNER JOIN Actor ON (ActorId=Actor.Id) "
+			ResultSet rs = st.executeQuery("SELECT * FROM Movie "
 					+ "WHERE MovieName like \'%" + movieName + "%\'");
 			while(rs.next()) {
 				Movie movie = new Movie();
