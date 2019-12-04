@@ -284,7 +284,6 @@ public class MovieDao {
 				}
 				
 			}
-			System.out.println(movieTypes.size());
 			
 			// for every movie in type, add some movies into the personal suggestions list
 			for(int i = 0; i < movieTypes.size(); i++) {
@@ -292,10 +291,13 @@ public class MovieDao {
 				String sql = "SELECT Id, MovieName, MovieType "
 						+ "FROM Movie "
 						+ "WHERE Rating > 3 "
-						+ "AND MovieType = ? ";
+						+ "AND MovieType = ? AND Id NOT IN (SELECT MovieId FROM (Customer "
+						+ "INNER JOIN Account ON (Customer.Id=Account.CustomerId)) "
+						+ "INNER JOIN Rental ON (Account.Id=Rental.AccountId) "
+						+ "WHERE Customer.Id= ? )";
 				PreparedStatement ps = con.prepareStatement(sql);
 				ps.setString(1, movieTypes.get(i));
-				System.out.println(movieTypes.get(i));
+				ps.setString(2, customerID);
 				ResultSet result = ps.executeQuery();
 				while(result.next()) {
 					Movie movie = new Movie();
