@@ -103,9 +103,18 @@ public class OrderDao {
 		 * orderID is the Order's ID, given as method parameter
 		 * The method should return a "success" string if the update is successful, else return "failure"
 		 */
-		/* Sample data begins */
-		return "success";
-		/* Sample data ends */
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			Connection con = DriverManager.getConnection("jdbc:mysql://mysql3.cs.stonybrook.edu:3306/agargueta?user=agargueta", "agargueta", "111456257");
+			Statement st = con.createStatement();
+			String sql = "UPDATE Orders set ReturnDate = NOW() where Orders.id = '" + orderID + "'";
+			st.executeUpdate(sql);
+			return "success";
+		}
+		catch(Exception e) {
+			System.out.println(e);
+			return "failure";
+		}
 	}
 	
 	public List<Rental> getOrderHisroty(String customerID) {
