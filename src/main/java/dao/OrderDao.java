@@ -72,15 +72,23 @@ public class OrderDao {
 		 * employeeEmail is the email ID of the customer representative, which is given as method parameter
 		 */
 		
-		/*Sample data begins*/
-		for (int i = 0; i < 10; i++) {
-			Order order = new Order();
-			order.setOrderID(1);
-			order.setDateTime("11-11-09 10:00");
-			order.setReturnDate("11-14-09");
-			orders.add(order);
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			Connection con = DriverManager.getConnection("jdbc:mysql://mysql3.cs.stonybrook.edu:3306/agargueta?user=agargueta", "agargueta", "111456257");
+			Statement st = con.createStatement();
+			ResultSet rs = st.executeQuery("select * from Orders, Rental, Employee where Employee.Email = '" + employeeEmail + "' and Employee.Id = Rental.CustRepId and Rental.OrderId = Orders.Id and Orders.ReturnDate is NULL");
+			while(rs.next()) {
+				Order order= new Order();
+				order.setOrderID(rs.getInt("Id"));
+				order.setDateTime(rs.getString("DateTime"));
+				order.setReturnDate(rs.getString("ReturnDate"));
+				orders.add(order);
+			}
+			
 		}
-		/*Sample data ends*/
+		catch(Exception e) {
+			System.out.println(e);
+		}
 		
 		return orders;
 
