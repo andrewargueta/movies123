@@ -1,1 +1,4 @@
 # Movies123
+Andrew Argueta (andrew.argueta@stonybrook.edu) Andrew Liang (andrew.liang@stonybrook.edu) Billy Luy (billy.luy@stonybrook.edu)
+
+A mock demo of a movie rental database. This project uses the languages: JSP, Java (JDBC Library), and SQL. There are 3 views for this website (customer, customerRepresentative, and manager). Each view has different functions and different home pages. Customers can change account settings, view movies, view best selling movies, view suggestions, and search movie rentals by name, actor, and genre. Customer representative can add/edit/view/delete customers, record orders, view open and closed orders, etc. Manager can add/edit/view/delete customer reps,  add/edit/view/delete movies, see the most active customer and customer rep, and the total revenue for any month. 
