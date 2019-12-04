@@ -616,7 +616,7 @@ public List<Movie> getQueueOfMovies(String customerID){
 		return movies;
 	}
 	
-	public List getMovieRentalsByName(String movieName) {
+		public List getMovieRentalsByName(String movieName) {
 		
 		
 
@@ -627,7 +627,7 @@ public List<Movie> getQueueOfMovies(String customerID){
 			Class.forName("com.mysql.jdbc.Driver");
 			Connection con = DriverManager.getConnection("jdbc:mysql://mysql3.cs.stonybrook.edu:3306/agargueta?user=agargueta", "agargueta", "111456257");
 			Statement st = con.createStatement();
-			ResultSet rs = st.executeQuery("select * from Movie where MovieName ='" +movieName+ "'");
+			ResultSet rs = st.executeQuery("select * from Movie WHERE MovieName LIKE '%" +movieName+ "%'");
 			while(rs.next()) {
 				Movie movie = new Movie();
 				movie.setDistFee(rs.getInt("DistrFee"));
